@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+  postgres:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: posuser
+      POSTGRES_PASSWORD: pospassword
+      POSTGRES_DB: posdb
+    ports:
+      - "5432:5432"
+
+  node:
+    image: node:latest
+    working_dir: /usr/src/app
+    volumes:
+      - .:/usr/src/app
+    ports:
+      - "3000:3000"
+    depends_on:
+      - postgres
+    command: npm start
